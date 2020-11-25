@@ -71,19 +71,19 @@ services:
    
 
 ######NOt working--- TO BE FIXED     
-#  thehive:
- #   image: thehiveproject/thehive:3.5.0-1
- #   volumes:
-  #    - type: bind
-  #      source: ./thehive/application.conf
-  #      target: /etc/thehive/application.conf
-  #      read_only: true
-  #  ports:
-  #    - "9000:9000"
-  #  networks:
-  #    - elk
-  #  depends_on:
-  #    - elasticsearch
+  thehive:
+    image: thehiveproject/thehive:3.5.0-1
+    volumes:
+      - type: bind
+        source: ./thehive/application.conf
+        target: /etc/thehive/application.conf
+        read_only: true
+    ports:
+      - "9000:9000"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
 
 networks:
   elk:
