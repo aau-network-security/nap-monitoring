@@ -28,7 +28,7 @@ itself is detailed.
 
 
 
-![defattSoc](http://cybertraining.dk/NAP%20Architecture%20-%20Copy%20of%20SoC-Blue.png)
+![defattSoc](http://cybertraining.dk/NAP%20Architecture%20-%20Copy%20of%20SoC-Blue.jpeg)
 
 
 
