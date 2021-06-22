@@ -59,3 +59,20 @@ cp /home/vagrant/uploads/monitoring.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable monitoring.service
 
+#install elastic-fleet agent
+curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt update
+
+wget https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-7.13.2-linux-x86_64.tar.gz
+mkdir elastic-agent
+tar xzf elastic-agent-7.13.2-linux-x86_64.tar.gz
+cd elastic-agent-7.13.2-linux-x86_64
+
+####start fleet server
+sudo ./elastic-agent install -f --fleet-server-es=http://10.10.10.200:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQyOTIyMDU2MDU6TFdHYUhoa0dSc2FjbHJRREFqNjUxUQ
+
+
+systemctl daemon-reload
+systemctl enable elastic-agent
+

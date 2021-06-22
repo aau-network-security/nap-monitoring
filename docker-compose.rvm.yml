@@ -2,10 +2,8 @@ version: '3.2'
 
 services:
   elasticsearch:
-    build:
-      context: elasticsearch/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.1
+    container_name: es_01
     volumes:
       - type: bind
         source: ./elasticsearch/config/elasticsearch.yml
@@ -26,37 +24,11 @@ services:
     networks:
       - elk
 
-  logstash:
-    build:
-      context: logstash/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - type: bind
-        source: ./logstash/config/logstash.yml
-        target: /usr/share/logstash/config/logstash.yml
-        read_only: true
-      - type: bind
-        source: ./logstash/pipeline
-        target: /usr/share/logstash/pipeline
-        read_only: true
-    ports:
-      - "5044:5044"
-      - "5000:5000/tcp"
-      - "5000:5000/udp"
-      - "9600:9600"
-    environment:
-      LS_JAVA_OPTS: "-Xmx${LOGSTASH_HEAP} -Xms${LOGSTASH_HEAP}"
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
+
 
   kibana:
-    build:
-      context: kibana/
-      args:
-        ELK_VERSION: $ELK_VERSION
+    image: docker.elastic.co/kibana/kibana:7.13.1
+    #image: kibana-preserved
     volumes:
       - type: bind
         source: ./kibana/config/kibana.yml
@@ -68,22 +40,69 @@ services:
       - elk
     depends_on:
       - elasticsearch
-   
 
-######NOt working--- TO BE FIXED     
-  thehive:
-    image: thehiveproject/thehive:3.5.0-1
-    volumes:
-      - type: bind
-        source: ./thehive/application.conf
-        target: /etc/thehive/application.conf
-        read_only: true
+
+
+  wireshark:
+    image: ghcr.io/linuxserver/wireshark
+    container_name: wireshark
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      #volumes:
+      # - /path/to/config:/config
     ports:
-      - "9000:9000"
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
+      - 3000:3000 #optional
+    restart: unless-stopped
+
+      #  packetbeat:
+      #    image: docker.elastic.co/beats/packetbeat:7.13.2
+      #    user: root
+      #    command:
+      #      - --strict.perms=false
+      #      - setup
+      #  - E output.elasticsearch.hosts=["sec03.lab.es.aau.dk:9200"]
+      #    volumes:
+      #      - type: bind
+      #        source: ./packetbeat/packetbeat.yml
+      #        target: /usr/share/packetbeat/packetbeat.yml
+      #        read_only: true
+      #depends_on:
+      #- "elasticsearch:" { condition: service_healthy }
+      # - "kibana"
+      #  depends_on:
+      # elasticsearch:
+      # condition: service_healthy
+      #    cap_add:
+      #      - NET_ADMIN
+      #      - NET_RAW
+      #    network_mode: host
+
+      #    environment:
+      #      - ELASTICSEARCH_URL=http://sec03.lab.es.aau.dk:9200
+    #    restart: on-failure
+
+
+
+
+    ######NOt working--- TO BE FIXED
+#  thehive:
+#    image: thehiveproject/thehive:3.5.0-1
+#    volumes:
+#      - type: bind
+#        source: ./thehive/application.conf
+#        target: /etc/thehive/application.conf
+#        read_only: true
+#    ports:
+#      - "9000:9000"
+#    networks:
+#      - elk
+#    depends_on:
+#      - elasticsearch
 
 networks:
   elk:
