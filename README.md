@@ -12,8 +12,7 @@ for the SOC.
 
 A **Security Operation Center** is defined by 4 crucial steps that are behind all the
 logic and functionality. These steps are briefly described
-nextly, while afterwards their integration with the platform
-itself is detailed.
+nextly:
 
 1. **Collection** - It is the step where all the events from the
    infrastructure are sent.
