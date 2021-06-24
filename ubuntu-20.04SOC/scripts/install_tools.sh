@@ -70,8 +70,7 @@ tar xzf elastic-agent-7.13.2-linux-x86_64.tar.gz
 cd elastic-agent-7.13.2-linux-x86_64
 
 ####start fleet server
-sudo ./elastic-agent install -f --fleet-server-es=http://10.10.10.200:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQyOTIyMDU2MDU6TFdHYUhoa0dSc2FjbHJRREFqNjUxUQ
-
+sudo ./elastic-agent install -f --fleet-server-es=https://10.10.10.200:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQzNjMzMzEzOTc6aU5hWVo1dERUNGVxazQxVkxrbF9ndw
 
 systemctl daemon-reload
 systemctl enable elastic-agent
