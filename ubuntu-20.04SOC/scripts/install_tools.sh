@@ -55,9 +55,15 @@ cd /home/vagrant
 git clone https://github.com/aau-network-security/nap-monitoring.git
 cd /home/vagrant/nap-monitoring/
 chmod +x /home/vagrant/nap-monitoring/
-cp /home/vagrant/uploads/monitoring.service /etc/systemd/system/
-systemctl daemon-reload
-systemctl enable monitoring.service
+#cp /home/vagrant/uploads/monitoring.service /etc/systemd/system/
+#
+
+docker-compose -f docker-compose.rvm.yml up -d
+
+
+#Do not need daemon if docker-compose up is executed
+#systemctl daemon-reload
+#systemctl enable monitoring.service
 
 #install elastic-fleet agent
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -70,7 +76,7 @@ tar xzf elastic-agent-7.13.2-linux-x86_64.tar.gz
 cd elastic-agent-7.13.2-linux-x86_64
 
 ####start fleet server
-sudo ./elastic-agent install -f --fleet-server-es=https://10.10.10.200:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQzNjMzMzEzOTc6aU5hWVo1dERUNGVxazQxVkxrbF9ndw
+sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQzNjMzMzEzOTc6aU5hWVo1dERUNGVxazQxVkxrbF9ndw
 
 systemctl daemon-reload
 systemctl enable elastic-agent
