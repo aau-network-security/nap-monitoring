@@ -23,6 +23,7 @@ services:
       discovery.type: single-node
     networks:
       - elk
+    restart: unless-stopped
 
 
 
@@ -41,7 +42,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
-
+    restart: unless-stopped
 
 
   wireshark:
