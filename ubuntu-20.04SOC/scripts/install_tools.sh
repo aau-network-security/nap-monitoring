@@ -23,13 +23,13 @@ apt-get install unzip -y
 
 ## install netman service to manage down network interfaces
 # pop up version if required
-#mkdir /home/vagrant/netman && cd /home/vagrant/netman
-#wget https://github.com/mrturkmenhub/netman/releases/download/1.0.4/netman_1.0.4_linux_64-bit.zip
-#unzip netman_1.0.4_linux_64-bit.zip && mv netman_1.0.4_linux_64-bit/* /home/vagrant/netman/
-#chmod +x /home/vagrant/netman/netman
-#cp /home/vagrant/uploads/netman.service /etc/systemd/system/
-#systemctl daemon-reload
-#systemctl enable netman.service
+mkdir /home/vagrant/netman && cd /home/vagrant/netman
+wget https://github.com/mrturkmenhub/netman/releases/download/1.0.4/netman_1.0.4_linux_64-bit.zip
+unzip netman_1.0.4_linux_64-bit.zip && mv netman_1.0.4_linux_64-bit/* /home/vagrant/netman/
+chmod +x /home/vagrant/netman/netman
+cp /home/vagrant/uploads/netman.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable netman.service
 
 ## install git
 apt-get install git-all -y
@@ -76,8 +76,7 @@ tar xzf elastic-agent-7.13.2-linux-x86_64.tar.gz
 cd elastic-agent-7.13.2-linux-x86_64
 
 ####start fleet server
-sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQzNjMzMzEzOTc6aU5hWVo1dERUNGVxazQxVkxrbF9ndw
-
+sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQzNjMzMzEzOTc6aU5hWVo1dERUNGVxazQxVkxrbF9ndw --insecure
 systemctl daemon-reload
 systemctl enable elastic-agent
 
