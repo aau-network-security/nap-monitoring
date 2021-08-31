@@ -11,3 +11,10 @@ monitoring.ui.container.elasticsearch.enabled: true
 #
 elasticsearch.username: elastic
 elasticsearch.password: changeme
+
+#FLeet settings
+xpack.fleet.enabled: true
+xpack.fleet.agents.enable: true
+
+xpack.fleet.agents.fleet_server.hosts: http://10.10.10.200:8220
+xpack.fleet.agents.elasticsearch.host: http://localhost:9200

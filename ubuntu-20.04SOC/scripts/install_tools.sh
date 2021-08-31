@@ -70,13 +70,20 @@ curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt update
 
-wget https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-7.13.2-linux-x86_64.tar.gz
-mkdir elastic-agent
-tar xzf elastic-agent-7.13.2-linux-x86_64.tar.gz
-cd elastic-agent-7.13.2-linux-x86_64
+cd /home/vagrant/
+curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-7.13.4-linux-x86_64.tar.gz
+tar xzvf elastic-agent-7.13.4-linux-x86_64.tar.gz
+cd elastic-agent-7.13.4-linux-x86_64
 
-####start fleet server
-sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MjQzNjMzMzEzOTc6aU5hWVo1dERUNGVxazQxVkxrbF9ndw --insecure
+####install fleet server
+sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
+
+#sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
+
+
 systemctl daemon-reload
 systemctl enable elastic-agent
 
+
+####start fleet server
+#sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAyMzEzMjE0MDc6c0tkMDBjd3FRV1d3Y1U0NjlZWGZ3UQ
