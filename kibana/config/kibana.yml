@@ -1,4 +1,3 @@
----
 ## Default Kibana configuration from Kibana base image.
 ## https://github.com/elastic/kibana/blob/master/src/dev/build/tasks/os_packages/docker_generator/templates/kibana_yml.template.ts
 #
@@ -9,12 +8,20 @@ monitoring.ui.container.elasticsearch.enabled: true
 
 ## X-Pack security credentials
 #
-elasticsearch.username: elastic
-elasticsearch.password: changeme
+#elasticsearch.username: elastic
+#elasticsearch.password: changeme
 
 #FLeet settings
 xpack.fleet.enabled: true
-xpack.fleet.agents.enable: true
+xpack.fleet.agents.tlsCheckDisabled: true
 
-xpack.fleet.agents.fleet_server.hosts: http://10.10.10.200:8220
+xpack.security.enabled: true
+elasticsearch.username: "elastic"
+elasticsearch.password: "changeme"
+
+
+
+#xpack.fleet.agents.enable: true
+
+xpack.fleet.agents.kibana.host: http://10.10.10.200
 xpack.fleet.agents.elasticsearch.host: http://localhost:9200
