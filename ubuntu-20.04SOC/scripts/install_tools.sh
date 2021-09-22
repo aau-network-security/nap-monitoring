@@ -78,7 +78,7 @@ cd elastic-agent-7.13.4-linux-x86_64
 ####install fleet server
 sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
 
-#sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
+#sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw
 
 
 systemctl daemon-reload

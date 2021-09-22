@@ -14,6 +14,7 @@ monitoring.ui.container.elasticsearch.enabled: true
 #FLeet settings
 xpack.fleet.enabled: true
 xpack.fleet.agents.tlsCheckDisabled: true
+xpack.encryptedSavedObjects.encryptionKey: "min-32-byte-long-strong-encryption-key"
 
 xpack.security.enabled: true
 elasticsearch.username: "elastic"
