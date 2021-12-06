@@ -16,7 +16,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xmx${ELASTICSEARCH_HEAP} -Xms${ELASTICSEARCH_HEAP}"
+      ES_JAVA_OPTS: -Xms${ELASTICSEARCH_HEAP} -Xmx${ELASTICSEARCH_HEAP}
       ELASTIC_PASSWORD: changeme
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
@@ -29,7 +29,7 @@ services:
 
   kibana:
     #image: docker.elastic.co/kibana/kibana:7.13.1
-    image: docker.io/aaunetworksecurity/kibana:v3
+    image: aaunetworksecurity/kibana:v4
     #image: kibana-preserved
     volumes:
       - type: bind
