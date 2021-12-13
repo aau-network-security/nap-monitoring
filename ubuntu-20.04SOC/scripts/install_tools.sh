@@ -57,7 +57,7 @@ cd /home/vagrant/nap-monitoring/
 chmod +x /home/vagrant/nap-monitoring/
 #cp /home/vagrant/uploads/monitoring.service /etc/systemd/system/
 #
-
+docker-compose -f docker-compose.rvm.yml pull
 docker-compose -f docker-compose.rvm.yml up -d
 
 
