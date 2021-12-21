@@ -29,7 +29,7 @@ services:
 
   kibana:
     #image: docker.elastic.co/kibana/kibana:7.13.1
-    image: aaunetworksecurity/kibana:v4
+    image: aaunetworksecurity/kibana:v3
     #image: kibana-preserved
     volumes:
       - type: bind
