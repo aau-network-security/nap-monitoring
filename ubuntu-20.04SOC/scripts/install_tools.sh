@@ -57,8 +57,8 @@ cd /home/vagrant/nap-monitoring/
 chmod +x /home/vagrant/nap-monitoring/
 #cp /home/vagrant/uploads/monitoring.service /etc/systemd/system/
 #
-docker-compose -f docker-compose.rvm.yml pull
-docker-compose -f docker-compose.rvm.yml up -d
+docker-compose -f docker-compose.rrr.yml pull
+docker-compose -f docker-compose.rrr.yml up -d
 
 
 #Do not need daemon if docker-compose up is executed
@@ -70,19 +70,19 @@ curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt update
 
-cd /home/vagrant/
-curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-7.13.4-linux-x86_64.tar.gz
-tar xzvf elastic-agent-7.13.4-linux-x86_64.tar.gz
-cd elastic-agent-7.13.4-linux-x86_64
+#cd /home/vagrant/
+#curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-7.13.4-linux-x86_64.tar.gz
+#tar xzvf elastic-agent-7.13.4-linux-x86_64.tar.gz
+#cd elastic-agent-7.13.4-linux-x86_64
 
 ####install fleet server
-sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
+#sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
 
 #sudo ./elastic-agent install -f --fleet-server-es=http://localhost:9200 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw
 
 
 systemctl daemon-reload
-systemctl enable elastic-agent
+#systemctl enable elastic-agent
 
 
 ####start fleet server
