@@ -23,6 +23,7 @@ services:
       discovery.type: single-node
     networks:
       - elk
+    hostname: es01
     restart: unless-stopped
 
 
@@ -48,21 +49,24 @@ services:
     image: docker.elastic.co/package-registry/distribution:7.17.6
     ports:
       - "8080:8080"
+    networks:
+      - elk
+    hostname: registry
     restart: unless-stopped
 
-  elastic-agent:
-    image: docker.elastic.co/beats/elastic-agent:7.17.6
-    container_name: elastic-agent
-    restart: always
-    user: root # note, synthetic browser monitors require this set to `elastic-agent`
-    environment:
-      - FLEET_SERVER_ENABLE=true
-      - FLEET_SERVER_ELASTICSEARCH_HOST=http://localhost:9200
-      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NjU2ODEyNzU4MzM6b19TcUxDZzlUd2VoVlpuVGt3QVJDQQ
-      - FLEET-SERVER-POLICY=499b5aa7-d214-5b5d-838b-3cd76469844e
-      - FLEET_AGENT_ID:serverFleet
-    depends_on:
-      - elasticsearch
+#  elastic-agent:
+#    image: docker.elastic.co/beats/elastic-agent:7.17.6
+#    container_name: elastic-agent
+#    restart: always
+#    user: root # note, synthetic browser monitors require this set to `elastic-agent`
+#    environment:
+#      - FLEET_SERVER_ENABLE=true
+#      - FLEET_SERVER_ELASTICSEARCH_HOST=http://localhost:9200
+#      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NjU2ODEyNzU4MzM6b19TcUxDZzlUd2VoVlpuVGt3QVJDQQ
+#      - FLEET-SERVER-POLICY=499b5aa7-d214-5b5d-838b-3cd76469844e
+#      - FLEET_AGENT_ID:serverFleet
+#    depends_on:
+#      - elasticsearch
 
   wireshark:
     image: lscr.io/linuxserver/wireshark:latest
