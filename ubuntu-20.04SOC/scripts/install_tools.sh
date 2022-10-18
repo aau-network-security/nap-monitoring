@@ -21,8 +21,8 @@ apt-get install ifupdown -y
 apt-get install zip  -y
 apt-get install unzip -y
 
-sudo apt-get install jq
-sudo apt-get install vim
+sudo apt install jq
+sudo apt install vim
 ## install netman service to manage down network interfaces
 # pop up version if required
 mkdir /home/vagrant/netman && cd /home/vagrant/netman
@@ -54,7 +54,7 @@ sudo usermod -aG docker vagrant
 
 # Will be managed laterb
 cd /home/vagrant
-git clone https://github.com/aau-network-security/nap-monitoring.git
+git clone -b newELK https://github.com/aau-network-security/nap-monitoring.git
 cd /home/vagrant/nap-monitoring/
 chmod +x /home/vagrant/nap-monitoring/
 #cp /home/vagrant/uploads/monitoring.service /etc/systemd/system/
@@ -91,7 +91,7 @@ sudo ./elastic-agent install --fleet-server-es=http://localhost:9200 --fleet-ser
 
 
 systemctl daemon-reload
-systemctl enable elastic-agent
+#systemctl enable elastic-agent
 
 
 
