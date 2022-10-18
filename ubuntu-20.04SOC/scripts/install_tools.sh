@@ -21,8 +21,8 @@ apt-get install ifupdown -y
 apt-get install zip  -y
 apt-get install unzip -y
 
-sudo apt install jq
-sudo apt install vim
+apt-get install jq -y
+apt-get install vim -y
 ## install netman service to manage down network interfaces
 # pop up version if required
 mkdir /home/vagrant/netman && cd /home/vagrant/netman
@@ -80,7 +80,7 @@ cd elastic-agent-7.17.6-linux-x86_64
 #Gerate Fleet Service Account
 $token=$(curl -k -u "elastic:changeme" -s -X POST localhost:9200/_security/service/elastic/fleet-server/credential/token --header 'kbn-xsrf: true'| jq -r .token.value)
 
-sudo ./elastic-agent install --fleet-server-es=http://localhost:9200 --fleet-server-service-token=$token --fleet-server-policy=499b5aa7-d214-5b5d-838b-3cd76469844e
+sudo ./elastic-agent install --fleet-server-es=http://localhost:9200 --fleet-server-service-token=$token --fleet-server-policy=499b5aa7-d214-5b5d-838b-3cd76469844e -y
 ####install fleet server
 #sudo ./elastic-agent install -f --url=http://localhost:8220 --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2MzAzMTQ4NjYzODg6WUk4QVN2anBUR095ZkdRVVRDLVVTZw --insecure
 
