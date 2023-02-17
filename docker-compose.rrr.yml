@@ -26,7 +26,28 @@ services:
     hostname: es01
     restart: unless-stopped
 
-
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.6
+    build:
+      context: logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    restart: unless-stopped
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    secrets:
+      - source: elastic.ca
+        target: /certs/ca.crt
+    environment:
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      ELASTICSEARCH_HOST_PORT: https://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}
+      LS_JAVA_OPTS: "-Xmx${LOGSTASH_HEAP} -Xms${LOGSTASH_HEAP} -Dlog4j2.formatMsgNoLookups=true"
+    ports:
+      - "5044:5044"
+      - "9600:9600"
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.6
@@ -57,32 +78,32 @@ services:
 #  elastic-agent:
 #    image: docker.elastic.co/beats/elastic-agent:7.17.6
 #    container_name: elastic-agent
-#    restart: always
-#    user: root # note, synthetic browser monitors require this set to `elastic-agent`
-#    environment:
-#      - FLEET_SERVER_ENABLE=true
-#      - FLEET_SERVER_ELASTICSEARCH_HOST=http://localhost:9200
-#      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NjU2ODEyNzU4MzM6b19TcUxDZzlUd2VoVlpuVGt3QVJDQQ
-#      - FLEET-SERVER-POLICY=499b5aa7-d214-5b5d-838b-3cd76469844e
-#      - FLEET_AGENT_ID:serverFleet
-#    depends_on:
-#      - elasticsearch
-
-  wireshark:
-    image: lscr.io/linuxserver/wireshark:latest
-    container_name: wireshark
-    cap_add:
-      - NET_ADMIN
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      #volumes:
-    # - /path/to/config:/config
-    ports:
-      - 3000:3000 #optional
-    restart: unless-stopped
+      #    restart: always
+      #    user: root # note, synthetic browser monitors require this set to `elastic-agent`
+      #    environment:
+      #      - FLEET_SERVER_ENABLE=true
+      #      - FLEET_SERVER_ELASTICSEARCH_HOST=http://localhost:9200
+      #      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NjU2ODEyNzU4MzM6b19TcUxDZzlUd2VoVlpuVGt3QVJDQQ
+      #      - FLEET-SERVER-POLICY=499b5aa7-d214-5b5d-838b-3cd76469844e
+      #      - FLEET_AGENT_ID:serverFleet
+      #    depends_on:
+      #      - elasticsearch
+      #
+      #  wireshark:
+      #    image: lscr.io/linuxserver/wireshark:latest
+      #    container_name: wireshark
+      #    cap_add:
+      #      - NET_ADMIN
+      #    network_mode: host
+      #    environment:
+      #      - PUID=1000
+      #      - PGID=1000
+      #      - TZ=Europe/London
+      #      #volumes:
+      #    # - /path/to/config:/config
+      #    ports:
+      #      - 3000:3000 #optional
+      #    restart: unless-stopped
 
       #  packetbeat:
       #    image: docker.elastic.co/beats/packetbeat:7.13.2
